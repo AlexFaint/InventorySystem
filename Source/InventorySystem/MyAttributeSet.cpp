@@ -4,8 +4,8 @@
 #include "MyAttributeSet.h"
 #include "AbilitySystemBlueprintLibrary.h"
 
-UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_OverWeight, "Inventory.OverWeight");
-
+//UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_OverWeight, "Inventory.OverWeight");
+UE_DEFINE_GAMEPLAY_TAG(TAG_INVENTORY_OVERWEIGHT, "Inventory.OverWeight");
 	
 void UMyAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
@@ -14,16 +14,16 @@ void UMyAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, f
 	if (Attribute == GetInventoryMaxWeightAttribute())
 	{
 	
-		if((NewValue <= GetInventoryMaxWeight()) && (!GetOwningAbilitySystemComponent()->HasMatchingGameplayTag(TAG_Gameplay_OverWeight)))
+		if((NewValue <= GetInventoryMaxWeight()) && (!GetOwningAbilitySystemComponent()->HasMatchingGameplayTag(TAG_INVENTORY_OVERWEIGHT)))
 		{
 			FGameplayEventData EventData;
-			EventData.EventTag = TAG_Gameplay_OverWeight;
-			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningActor(),TAG_Gameplay_OverWeight,EventData);
+			EventData.EventTag = TAG_INVENTORY_OVERWEIGHT;
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningActor(),TAG_INVENTORY_OVERWEIGHT,EventData);
 		}
 
 	if ((OldValue <= GetInventoryMaxWeight())&& (NewValue > GetInventoryMaxWeight()))
 	{
-		GetOwningAbilitySystemComponent()->RemoveLooseGameplayTag(TAG_Gameplay_OverWeight);
+		GetOwningAbilitySystemComponent()->RemoveLooseGameplayTag(TAG_INVENTORY_OVERWEIGHT);
 	}
 	}
 }
