@@ -10,11 +10,22 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "InventorySystem/MyPlayerState.h"
+#include "AbilitySystemComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
 // AInventorySystemCharacter
+
+UAbilitySystemComponent* AInventorySystemCharacter::GetAbilitySystemComponent() const
+{
+	if (const AMyPlayerState* MyPlayerState = GetPlayerState <AMyPlayerState>())
+	{
+		return MyPlayerState-> GetAbilitySystemComponent();
+	}
+	return nullptr;
+}
 
 AInventorySystemCharacter::AInventorySystemCharacter()
 {
@@ -66,6 +77,26 @@ void AInventorySystemCharacter::BeginPlay()
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
+	}
+}
+
+void AInventorySystemCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if(const AMyPlayerState* MyPlayerState = NewController->GetPlayerState<AMyPlayerState>())
+	{
+		MyPlayerState->GetAbilitySystemComponent()->SetAvatarActor(this);
+	}
+}
+
+void AInventorySystemCharacter::UnPossessed()
+{
+	Super::UnPossessed();
+
+	if (const AMyPlayerState* MyPlayerState = GetPlayerState<AMyPlayerState>())
+	{
+		MyPlayerState->GetAbilitySystemComponent()->SetAvatarActor(nullptr);
 	}
 }
 

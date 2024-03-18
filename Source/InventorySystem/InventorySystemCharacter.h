@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "AbilitySystemInterface.h"
 #include "InventorySystemCharacter.generated.h"
+
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -16,9 +18,15 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class AInventorySystemCharacter : public ACharacter
+class AInventorySystemCharacter : public ACharacter , public IAbilitySystemInterface
 {
 	GENERATED_BODY()
+
+public:
+	virtual  UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void UnPossessed() override;
+
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
