@@ -26,18 +26,19 @@ class INVENTORYSYSTEM_API UMyAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 	
 public:
-	// Inventory info:
-	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
-	FGameplayAttributeData InventorySize;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, InventorySize)
-	
+	//WeightInfo
 	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
 	FGameplayAttributeData InventoryWeight;
 	ATTRIBUTE_ACCESSORS(UMyAttributeSet, InventoryWeight)
-	
+
 	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
 	FGameplayAttributeData InventoryMaxWeight;
 	ATTRIBUTE_ACCESSORS(UMyAttributeSet, InventoryMaxWeight)
+	
+	// Inventory info:
+	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
+	FGameplayAttributeData InventorySize;
+	ATTRIBUTE_ACCESSORS(UMyAttributeSet, InventorySize)		
 
 	//Cell attribute info:
 	UPROPERTY(BlueprintReadOnly, Category = "ItemInfo")
