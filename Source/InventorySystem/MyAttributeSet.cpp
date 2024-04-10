@@ -19,12 +19,9 @@ void UMyAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, f
 			FGameplayEventData EventData;
 			EventData.EventTag = TAG_INVENTORY_OVERWEIGHT;
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningActor(),TAG_INVENTORY_OVERWEIGHT,EventData);
-			GetOwningAbilitySystemComponent()->HandleGameplayEvent(TAG_INVENTORY_OVERWEIGHT, &EventData);
-			GetOwningAbilitySystemComponent()->AddLooseGameplayTag(TAG_INVENTORY_OVERWEIGHT);
 		}
 
-	//if ((OldValue <= GetInventoryMaxWeight())&& (NewValue > GetInventoryMaxWeight()))
-	if ((OldValue <= 40)&& (NewValue > GetInventoryMaxWeight()))
+	if ((OldValue <= GetInventoryMaxWeight())&& (NewValue > GetInventoryMaxWeight()))
 	{
 		GetOwningAbilitySystemComponent()->RemoveLooseGameplayTag(TAG_INVENTORY_OVERWEIGHT);
 	}
